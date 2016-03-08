@@ -1,6 +1,6 @@
 package com.excilys.cdb.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Computer model
@@ -9,28 +9,29 @@ import java.sql.Date;
  */
 public class Computer {
 	
-	private long id;
-	private int name;
+	private Long id;
+	private String name;
 	private Date introduced;
 	private Date discontinued;
-	private long company_id;
+	private Long company_id;
 
 	public Computer() {
+
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(int name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -50,11 +51,11 @@ public class Computer {
 		this.discontinued = discontinued;
 	}
 
-	public long getCompany_id() {
+	public Long getCompany_id() {
 		return company_id;
 	}
 
-	public void setCompany_id(long company_id) {
+	public void setCompany_id(Long company_id) {
 		this.company_id = company_id;
 	}
 
