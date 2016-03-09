@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,12 +74,13 @@ public class ComputerDAO implements DAO<Computer> {
 	public Computer create(Computer obj) {
 		try {
 			String query = "INSERT INTO computer "
-					+ "(name, introduced, discontinued, company_id) VALUES (?, "
-					+ obj.getIntroduced() + ", "
-					+ obj.getDiscontinued() + ", "
+					+ "(name, introduced, discontinued, company_id) VALUES (?, ?, ?, "
 					+ obj.getCompany_id() + ")";
 			PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, obj.getName());
+			stmt.setTimestamp(2, new Timestamp(obj.getIntroduced().getTime()));
+			Timestamp discontinued = obj.getDiscontinued() == null ? null : new Timestamp(obj.getDiscontinued().getTime());
+			stmt.setTimestamp(3, discontinued);
 			stmt.executeUpdate();
 			ResultSet result = stmt.getGeneratedKeys();
 			result.next();
@@ -117,6 +119,20 @@ public class ComputerDAO implements DAO<Computer> {
 		try {
 			Statement stmt = conn.createStatement();
 			String query = "DELETE FROM computer WHERE id = " + obj.getId();
+			stmt.executeUpdate(query);
+			stmt.close();
+			return true;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean delete(Long id) {
+		try {
+			Statement stmt = conn.createStatement();
+			String query = "DELETE FROM computer WHERE id = " + id;
 			stmt.executeUpdate(query);
 			stmt.close();
 			return true;

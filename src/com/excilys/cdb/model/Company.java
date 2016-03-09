@@ -29,4 +29,31 @@ public class Company {
 		this.name = name;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj) {
+			return true;
+		}
+		if(obj == null) {
+			return false;
+		}
+		if(getClass() != obj.getClass()) {
+			return false;
+		}
+		Company other = (Company) obj;
+		return id.equals(other.id) && name.equals(other.name);
+	}
+	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		String result = new String();
+		result += name + " (id : " + id + ")";
+		return result;
+	}
 }

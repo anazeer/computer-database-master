@@ -2,18 +2,15 @@ package com.excilys.cdb.test;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+
 import java.util.List;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.persistence.ComputerDAO;
-import com.excilys.cdb.persistence.ConnectionSingleton;
 
 /**
  * ComputerDAO test class. We assume that the database is not empty
@@ -22,20 +19,12 @@ import com.excilys.cdb.persistence.ConnectionSingleton;
  */
 public class ComputerDAOTest {
 	
-	private static Connection conn;
 	private static ComputerDAO computerDAO;
 	private static final String msgId = "id should be not null";
 	
 	@BeforeClass
 	public static void init() {
-		conn = ConnectionSingleton.getInstance();
 		computerDAO = new ComputerDAO();
-	}
-	
-	@AfterClass
-	public static void end() throws SQLException {
-		conn.close();
-		conn = null;
 	}
 	
 	/**

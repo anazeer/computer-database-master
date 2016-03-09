@@ -16,8 +16,7 @@ public class ConnectionSingleton {
 	private final static String user = "admincdb";
 	private final static String pwd = "qwerty1234";
 	
-	private ConnectionSingleton() {
-	}
+	private ConnectionSingleton() {}
 	
 	/**
 	 * 
