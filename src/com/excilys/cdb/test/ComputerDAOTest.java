@@ -44,7 +44,7 @@ public class ComputerDAOTest {
 	 */
 	@Test
 	public void testFind() throws Exception {
-		Computer computer = computerDAO.findById(50L);
+		Computer computer = computerDAO.findById(52L);
 		assertNotNull(computer);
 	}
 	

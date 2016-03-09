@@ -13,17 +13,16 @@ public class ComputerMapper implements DAOMapper<Computer> {
 		super();
 	}
 	
+	@Override
 	public Computer find(ResultSet result) {
 		try {
-			if(result.next()) {
-				Computer computer = new Computer();
-				computer.setId(result.getLong("id"));
-				computer.setName(result.getString("name"));
-				computer.setIntroduced(result.getDate("introduced"));
-				computer.setDiscontinued(result.getDate("discontinued"));
-				computer.setCompany_id(result.getLong("company_id"));
-				return computer;
-			}
+			Computer computer = new Computer();
+			computer.setId(result.getLong("id"));
+			computer.setName(result.getString("name"));
+			computer.setIntroduced(result.getDate("introduced"));
+			computer.setDiscontinued(result.getDate("discontinued"));
+			computer.setCompany_id(result.getLong("company_id"));
+			return computer;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.cdb.model.Computer;
@@ -29,12 +30,15 @@ public class ComputerDAO implements DAO<Computer> {
 	
 	@Override
 	public List<Computer> findAll() {
+		List<Computer> listComputer = null;
 		try {
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM computer";
 			ResultSet result = stmt.executeQuery(query);
 			DAOMapper<Computer> mapper = new ComputerMapper();
-			List<Computer> listComputer = mapper.findAll(result);
+			listComputer = new ArrayList<Computer>();
+			while(result.next())
+				listComputer.add(mapper.find(result));
 			result.close();
 			stmt.close();
 			return listComputer;
@@ -42,25 +46,27 @@ public class ComputerDAO implements DAO<Computer> {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return listComputer;
 	}
 	
 	@Override
 	public Computer findById(Long id) {
+		Computer computer = null;
 		try {
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM computer WHERE computer.id = " + id;
 			ResultSet result = stmt.executeQuery(query);
 			DAOMapper<Computer> mapper = new ComputerMapper();
-			Computer computer = mapper.find(result);
+			if(result.next()) {
+				computer = mapper.find(result);
+			}
 			result.close();
 			stmt.close();
-			return computer;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return computer;
 	}
 
 	@Override
@@ -78,12 +84,11 @@ public class ComputerDAO implements DAO<Computer> {
 			result.next();
 			obj.setId((long) result.getInt(1));
 			stmt.close();
-			return obj;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return obj;
 	}
 	
 	@Override

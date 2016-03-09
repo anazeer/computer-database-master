@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ConnectionSingleton {
 	
 	private static Connection conn = null;
-	private final static String url = "jdbc:mysql://localhost:3306/computer-database-db";
+	private final static String url = "jdbc:mysql://localhost:3306/computer-database-db?zeroDateTimeBehavior=convertToNull";
 	private final static String user = "admincdb";
 	private final static String pwd = "qwerty1234";
 	

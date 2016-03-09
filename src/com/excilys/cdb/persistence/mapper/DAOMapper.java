@@ -1,7 +1,6 @@
 package com.excilys.cdb.persistence.mapper;
 
 import java.sql.ResultSet;
-import java.util.List;
 
 /**
  * 
@@ -12,6 +11,5 @@ import java.util.List;
 public interface DAOMapper<T> {
 
 	public T find(ResultSet result);
-	public List<T> findAll(ResultSet result);
 
 }

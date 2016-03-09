@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.cdb.model.Company;
@@ -28,12 +29,15 @@ public class CompanyDAO implements DAO<Company> {
 
 	@Override
 	public List<Company> findAll() {
+		List<Company> listCompany = null;
 		try {
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM company";
 			ResultSet result = stmt.executeQuery(query);
 			DAOMapper<Company> mapper = new CompanyMapper();
-			List<Company> listCompany = mapper.findAll(result);
+			listCompany = new ArrayList<Company>();
+			while(result.next())
+				listCompany.add(mapper.find(result));
 			result.close();
 			stmt.close();
 			return listCompany;
@@ -46,20 +50,22 @@ public class CompanyDAO implements DAO<Company> {
 
 	@Override
 	public Company findById(Long id) {
+		Company company = null;
 		try {
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM company WHERE company.id = " + id;
 			ResultSet result = stmt.executeQuery(query);
 			DAOMapper<Company> mapper = new CompanyMapper();
-			Company company = mapper.find(result);
+			if(result.next()) {
+				company = mapper.find(result);
+			}
 			result.close();
 			stmt.close();
-			return company;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return company;
 	}
 
 }
